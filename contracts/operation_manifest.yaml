@@ -1,0 +1,79 @@
+operations:
+  - operation_id: upscale
+    display_name: Upscale Image
+    description: Resize to fit the requested pixel bounds using Lanczos, preserving aspect ratio. Can optionally place the result on a fixed-size canvas without stretching.
+    operation_kind: action
+    category: image_processing
+    connection_type_ids: []
+    inputs:
+      - {name: artifact_handle, value_type: artifact_handle, required: true}
+      - name: target_width
+        value_type: number
+        schema: {type: number, minimum: 1, maximum: 8192}
+      - name: target_height
+        value_type: number
+        schema: {type: number, minimum: 1, maximum: 8192}
+      - name: resize_mode
+        value_type: text
+        schema: {type: string, enum: [resize, fit_canvas], default: resize}
+      - name: canvas_color
+        value_type: text
+        schema: {type: string, default: white}
+    outputs: &image_outputs
+      - {name: image_artifact_handle, value_type: artifact_handle}
+      - {name: width, value_type: number}
+      - {name: height, value_type: number}
+      - {name: original_width, value_type: number}
+      - {name: original_height, value_type: number}
+      - {name: has_transparency, value_type: boolean}
+      - {name: processing_method, value_type: text}
+      - {name: size_bytes, value_type: number}
+    error_codes: &errors
+      - invalid_payload
+      - invalid_dimensions
+      - input_too_large
+      - invalid_image
+      - unsupported_image
+      - invalid_resize_mode
+      - invalid_canvas_color
+      - image_too_large
+      - output_too_large
+      - artifact_access_failed
+      - model_unavailable
+      - processing_failed
+  - operation_id: remove_background
+    display_name: Remove Background
+    description: Remove the foreground object's background locally with U2-NetP on CPU, returning a transparent PNG at the original dimensions.
+    operation_kind: action
+    category: image_processing
+    connection_type_ids: []
+    inputs:
+      - {name: artifact_handle, value_type: artifact_handle, required: true}
+      - {name: keep_existing_transparency, value_type: boolean}
+    outputs: *image_outputs
+    error_codes: *errors
+  - operation_id: check_size
+    display_name: Check Image Size
+    description: Read image dimensions and return resize/padding flags for workflow branching without writing a new image artifact.
+    operation_kind: action
+    category: image_processing
+    connection_type_ids: []
+    inputs:
+      - {name: artifact_handle, value_type: artifact_handle, required: true}
+      - name: target_width
+        value_type: number
+        schema: {type: number, minimum: 1, maximum: 8192, default: 2048}
+      - name: target_height
+        value_type: number
+        schema: {type: number, minimum: 1, maximum: 8192, default: 2048}
+    outputs:
+      - {name: width, value_type: number}
+      - {name: height, value_type: number}
+      - {name: target_width, value_type: number}
+      - {name: target_height, value_type: number}
+      - {name: exact_match, value_type: boolean}
+      - {name: fits_within_target, value_type: boolean}
+      - {name: needs_resize, value_type: boolean}
+      - {name: needs_padding, value_type: boolean}
+      - {name: recommended_resize_mode, value_type: text}
+    error_codes: *errors

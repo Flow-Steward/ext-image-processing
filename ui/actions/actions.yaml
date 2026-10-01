@@ -1,0 +1,55 @@
+actions:
+  - action_id: upscale
+    title: Upscale Image
+    description: Proportional Lanczos resize or fit-to-canvas output, saved as PNG.
+    required_scopes: [extension:invoke, artifact:read, artifact:write]
+    handler: {mode: extension}
+    mutates_platform: false
+    workflow_visible: true
+    parameters:
+      - {name: artifact_handle, type: artifact_handle, required: true}
+      - {name: target_width, type: integer, required: false}
+      - {name: target_height, type: integer, required: false}
+      - {name: resize_mode, type: string, required: false}
+      - {name: canvas_color, type: string, required: false}
+    result_fields: &image_results
+      - image_artifact_handle
+      - width
+      - height
+      - original_width
+      - original_height
+      - has_transparency
+      - processing_method
+      - size_bytes
+  - action_id: remove_background
+    title: Remove Background
+    description: Local U2-NetP background removal with transparent PNG output.
+    required_scopes: [extension:invoke, artifact:read, artifact:write]
+    handler: {mode: extension}
+    mutates_platform: false
+    workflow_visible: true
+    parameters:
+      - {name: artifact_handle, type: artifact_handle, required: true}
+      - {name: keep_existing_transparency, type: boolean, required: false}
+    result_fields: *image_results
+  - action_id: check_size
+    title: Check Image Size
+    description: Read image dimensions and return workflow branching flags.
+    required_scopes: [extension:invoke, artifact:read]
+    handler: {mode: extension}
+    mutates_platform: false
+    workflow_visible: true
+    parameters:
+      - {name: artifact_handle, type: artifact_handle, required: true}
+      - {name: target_width, type: integer, required: false}
+      - {name: target_height, type: integer, required: false}
+    result_fields:
+      - width
+      - height
+      - target_width
+      - target_height
+      - exact_match
+      - fits_within_target
+      - needs_resize
+      - needs_padding
+      - recommended_resize_mode

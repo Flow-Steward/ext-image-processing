@@ -1,0 +1,22 @@
+policies:
+  - operation_id: upscale
+    inputs: &inputs
+      - kind: artifact
+        value_type: artifact_handle
+        binding_key: source_image
+        field: artifact_handle
+        required: true
+        max_size_bytes: 20971520
+    outputs: &outputs
+      - kind: artifact
+        binding_key: image_artifact_handle
+        filename: image.png
+        content_type: image/png
+        max_size_bytes: 73400320
+        retention_class: run_window
+  - operation_id: remove_background
+    inputs: *inputs
+    outputs: *outputs
+  - operation_id: check_size
+    inputs: *inputs
+    outputs: []

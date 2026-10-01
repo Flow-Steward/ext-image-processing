@@ -1,0 +1,14 @@
+page_id: about
+title: Image Processing
+components:
+  - component_id: image_processing_details
+    type: markdown
+    body: |
+      ## Image Processing
+
+      Local image processing. No API key or external image service.
+
+      | Action | Output |
+      | --- | --- |
+      | Upscale Image | Proportional PNG at the requested pixel bounds |
+      | Remove Background | Transparent PNG at the original dimensions |

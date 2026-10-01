@@ -1,0 +1,7 @@
+# Installed by CI for the tests; the runtime installs python_requirements itself.
+flatbuffers==25.12.19
+numpy==2.4.2
+onnxruntime==1.30.0
+packaging==26.3
+pillow==12.3.0
+protobuf==7.36.1

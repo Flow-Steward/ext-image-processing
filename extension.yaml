@@ -1,0 +1,54 @@
+manifest_version: 2
+lifecycle: {data_schema_version: 1, data_migrations: []}
+extension_id: com.image.processing
+kind: tool_provider
+version: 0.1.0
+display_name: Image Processing
+description: Local, CPU-only image resizing and background removal for workflows.
+vendor:
+  name: Image Processing
+listing:
+  category: media
+  tags: [images, resize, background-removal, local]
+  summary: Resize image artifacts proportionally and remove backgrounds locally.
+features: [tool, action]
+required_scopes: [extension:invoke, artifact:read, artifact:write]
+machine_auth:
+  service_account_key: svc_ext_image_processing
+  required_scopes: [extension:invoke, artifact:read, artifact:write]
+account_scope:
+  scope_type: project
+  description: Image input and output artifacts stay in the invoking project.
+runtime:
+  extension_contract_v2:
+    operation_manifest: contracts/operation_manifest.yaml
+    artifact_policies: contracts/artifact_policies.yaml
+    step_ui_manifest: contracts/step_ui_manifest.yaml
+entrypoint:
+  mode: subprocess
+  command: [python3, main.py]
+  timeout_seconds: 120
+health:
+  command: [python3, health.py]
+  timeout_seconds: 15
+ui_manifest: ui/ui_manifest.yaml
+action_manifest: ui/actions/actions.yaml
+python_requirements:
+  - name: flatbuffers
+    version: 25.12.19
+    hashes: ["sha256:7634f50c427838bb021c2d66a3d1168e9d199b0607e6329399f04846d42e20b4"]
+  - name: numpy
+    version: 2.4.2
+    hashes: ["sha256:9e35d3e0144137d9fdae62912e869136164534d64a169f86438bc9561b6ad49f", "sha256:6d82351358ffbcdcd7b686b90742a9b86632d6c1c051016484fa0b326a0a1548"]
+  - name: onnxruntime
+    version: 1.30.0
+    hashes: ["sha256:fa688e7891a6aa206636fe7372e27ee75fd17713289f6b4fc7b190e0a7de9328", "sha256:6c32a000d5139a38ba9349030b0032e3331acb559d596b22738d9d2b343a2b83"]
+  - name: packaging
+    version: "26.3"
+    hashes: ["sha256:d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c"]
+  - name: pillow
+    version: 12.3.0
+    hashes: ["sha256:78cb2c6865a35ab8ff8b75fd122f6033b92a62c82801110e48ddd6c936a45d91", "sha256:d9c7f76c0673154f044e9d78c8655fb4213f6ca31a836df48b40fe5d187717b9"]
+  - name: protobuf
+    version: 7.36.1
+    hashes: ["sha256:97198b77e369a0abd8e262b8f6c7266c55ddb796a3a12c76d7b8881188ed83aa", "sha256:43d3d37b1eb24c113b9b7d02008cac44e423f00b611b7781ae998d7623972969"]

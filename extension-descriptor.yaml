@@ -1,0 +1,33 @@
+schema_version: extension_descriptor_v1
+extension_id: com.image.processing
+release_version: 0.1.0
+extension_type: service_extension
+identity:
+  display_name: Image Processing
+  description: Local image resizing and background removal.
+  tags: [images, local, cpu]
+vendor:
+  vendor_name: Image Processing
+listing:
+  visibility: private_reference
+  category: media
+distribution:
+  channel: private_byo
+  execution_modes: [local]
+  allows_self_hosted: true
+  requires_connected_control_plane: false
+  import_sources: [file]
+runtime:
+  contract_version: extension_host_v1
+  compatibility: {platform_min: 1.0.0}
+  extension_contract_v2:
+    operation_manifest: contracts/operation_manifest.yaml
+    artifact_policies: contracts/artifact_policies.yaml
+    step_ui_manifest: contracts/step_ui_manifest.yaml
+artifacts:
+  extensions:
+    - extension_id: com.image.processing
+      ref: extension.yaml
+      publish: true
+provenance: {origin: user_generated}
+commerce: {billing_mode: free}

@@ -1,0 +1,29 @@
+forms:
+  - operation_id: upscale
+    title: Upscale Image
+    section: Image
+    fields:
+      - {name: artifact_handle, widget_type: artifact_picker, label: Image, required: true}
+      - {name: target_width, widget_type: number, label: Maximum width (px), default: 1920}
+      - {name: target_height, widget_type: number, label: Maximum height (px), default: 1080}
+      - name: resize_mode
+        widget_type: select
+        label: Resize mode
+        default: resize
+        options:
+          - {label: Resize only, value: resize}
+          - {label: Fit canvas, value: fit_canvas}
+      - {name: canvas_color, widget_type: text, label: Canvas color, default: white}
+  - operation_id: remove_background
+    title: Remove Background
+    section: Image
+    fields:
+      - {name: artifact_handle, widget_type: artifact_picker, label: Image, required: true}
+      - {name: keep_existing_transparency, widget_type: boolean, label: Keep existing transparency, default: true}
+  - operation_id: check_size
+    title: Check Image Size
+    section: Image
+    fields:
+      - {name: artifact_handle, widget_type: artifact_picker, label: Image, required: true}
+      - {name: target_width, widget_type: number, label: Target width (px), default: 2048}
+      - {name: target_height, widget_type: number, label: Target height (px), default: 2048}
