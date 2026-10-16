@@ -2,7 +2,7 @@ manifest_version: 2
 lifecycle: {data_schema_version: 1, data_migrations: []}
 extension_id: com.image.processing
 kind: tool_provider
-version: 0.1.0
+version: 0.2.0
 display_name: Image Processing
 description: Local, CPU-only image resizing and background removal for workflows.
 vendor:
@@ -20,6 +20,7 @@ account_scope:
   scope_type: project
   description: Image input and output artifacts stay in the invoking project.
 runtime:
+  contract_version: extension_host_v2
   extension_contract_v2:
     operation_manifest: contracts/operation_manifest.yaml
     artifact_policies: contracts/artifact_policies.yaml

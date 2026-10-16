@@ -16,13 +16,33 @@ from errors import ImageProcessingError
 from images import decode_image, dimensions, resize_image
 
 BUNDLE = Path(__file__).resolve().parents[1]
+# The final extension_host_v2 execution scope: all four keys, at most one owner.
+ROOT_STEP_SCOPE = {
+    "group_id": None,
+    "for_each_id": None,
+    "step_id": "resize_photo",
+    "step_execution_id": "3f6a1c2d-9b8e-4d7c-a6f5-1e2d3c4b0001",
+}
+GROUP_STEP_SCOPE = {**ROOT_STEP_SCOPE, "group_id": "prepare_images"}
+FOR_EACH_STEP_SCOPE = {
+    **ROOT_STEP_SCOPE,
+    "for_each_id": "each_photo",
+    "step_execution_id": "3f6a1c2d-9b8e-4d7c-a6f5-1e2d3c4b0002",
+}
 
 
-def payload(tmp_path: Path, image: Image.Image, action: str = "upscale", **options) -> dict:
+def payload(
+    tmp_path: Path,
+    image: Image.Image,
+    action: str = "upscale",
+    scope: dict | None = None,
+    **options,
+) -> dict:
     source = tmp_path / "source.png"
     image.save(source)
     return {
-        "contract_version": "extension_host_v1",
+        "contract_version": "extension_host_v2",
+        "runtime_context": dict(FOR_EACH_STEP_SCOPE if scope is None else scope),
         "action": {
             "action_id": action,
             "input": {"artifact_handle": "artifact:input", **options},
@@ -151,6 +171,8 @@ def test_large_bounds_rejected_before_artifact_io(monkeypatch):
     monkeypatch.setattr(image_processing, "_read_image", lambda *_: pytest.fail("no artifact read"))
     response = image_processing.handle_payload(
         {
+            "contract_version": "extension_host_v2",
+            "runtime_context": dict(ROOT_STEP_SCOPE),
             "action": {
                 "action_id": "upscale",
                 "input": {
@@ -158,7 +180,7 @@ def test_large_bounds_rejected_before_artifact_io(monkeypatch):
                     "target_width": 8192,
                     "target_height": 8192,
                 },
-            }
+            },
         }
     )
     assert response["error_code"] == "invalid_dimensions"
@@ -266,7 +288,22 @@ def test_byte_limit_enforced_while_streaming(monkeypatch):
         image_processing._read_image({}, "artifact:input")
 
 
-@pytest.mark.parametrize("raw", ["{invalid", "[]", "null", '{"action": {"action_id": "unknown"}}'])
+@pytest.mark.parametrize(
+    "raw",
+    [
+        "{invalid",
+        "[]",
+        "null",
+        '{"action": {"action_id": "unknown"}}',
+        json.dumps(
+            {
+                "contract_version": "extension_host_v2",
+                "runtime_context": ROOT_STEP_SCOPE,
+                "action": {"action_id": "unknown"},
+            }
+        ),
+    ],
+)
 def test_entrypoint_returns_structured_errors(raw):
     proc = subprocess.run(
         [sys.executable, str(BUNDLE / "main.py")],
@@ -279,3 +316,71 @@ def test_entrypoint_returns_structured_errors(raw):
     response = json.loads(proc.stdout)
     assert response["ok"] is False
     assert "Traceback" not in proc.stderr
+
+
+@pytest.mark.parametrize("scope", [ROOT_STEP_SCOPE, GROUP_STEP_SCOPE, FOR_EACH_STEP_SCOPE])
+@pytest.mark.parametrize("action", ["upscale", "check_size"])
+def test_every_final_scope_owner_reads_and_writes_artifacts(tmp_path, scope, action):
+    request = payload(
+        tmp_path,
+        Image.new("RGB", (64, 32), (10, 20, 30)),
+        action,
+        scope=scope,
+        target_width=128,
+        target_height=128,
+    )
+
+    response = image_processing.handle_payload(request)
+
+    assert response["ok"], response
+    if action == "check_size":
+        assert response["result"]["width"] == 64
+        assert response["result"]["needs_resize"] is True
+        assert not (tmp_path / "output.png").exists()
+    else:
+        assert response["result"]["image_artifact_handle"] == "artifact:output"
+        with Image.open(tmp_path / "output.png") as output:
+            assert output.size == (128, 64)
+
+
+@pytest.mark.parametrize(
+    ("contract_version", "scope", "reason"),
+    [
+        ("extension_host_v1", FOR_EACH_STEP_SCOPE, "Unsupported host contract"),
+        ("", FOR_EACH_STEP_SCOPE, "Unsupported host contract"),
+        (
+            "extension_host_v2",
+            {k: v for k, v in FOR_EACH_STEP_SCOPE.items() if k != "for_each_id"},
+            "misses execution scope",
+        ),
+        (
+            "extension_host_v2",
+            {**FOR_EACH_STEP_SCOPE, "group_id": "prepare_images"},
+            "both a Group and a For each",
+        ),
+        (
+            "extension_host_v2",
+            {**ROOT_STEP_SCOPE, "step_execution_id": None},
+            "without its logical execution",
+        ),
+    ],
+)
+def test_foreign_or_incomplete_envelope_is_refused_before_any_artifact_io(
+    tmp_path, monkeypatch, contract_version, scope, reason
+):
+    def no_artifact_io(*_args, **_kwargs):
+        pytest.fail("a refused envelope must not read or write an artifact")
+
+    monkeypatch.setattr(image_processing, "stream_artifact_bytes", no_artifact_io)
+    monkeypatch.setattr(image_processing, "write_artifact_bytes", no_artifact_io)
+    request = payload(tmp_path, Image.new("RGB", (16, 16)), "upscale", scope=scope)
+    request["action"]["input"].update(target_width=32, target_height=32)
+    request["contract_version"] = contract_version
+
+    response = image_processing.handle_payload(request)
+
+    assert response["ok"] is False
+    assert response["error_code"] == "invalid_host_envelope"
+    assert reason in response["error"]
+    assert response["definitely_no_external_effect"] is True
+    assert not (tmp_path / "output.png").exists()

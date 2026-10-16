@@ -1,6 +1,6 @@
 schema_version: extension_descriptor_v1
 extension_id: com.image.processing
-release_version: 0.1.0
+release_version: 0.2.0
 extension_type: service_extension
 identity:
   display_name: Image Processing
@@ -18,7 +18,7 @@ distribution:
   requires_connected_control_plane: false
   import_sources: [file]
 runtime:
-  contract_version: extension_host_v1
+  contract_version: extension_host_v2
   compatibility: {platform_min: 1.0.0}
   extension_contract_v2:
     operation_manifest: contracts/operation_manifest.yaml

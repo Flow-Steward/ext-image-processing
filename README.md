@@ -4,6 +4,19 @@ Local image actions for Flow Steward workflows. No external provider, API key,
 GPU, PyTorch, or model server is needed. Images are read and written using the
 host's project-scoped artifact grants. Image data is never sent to an inference API.
 
+## Requirements
+
+This release speaks the host contract `extension_host_v2` with its final
+execution scope (`group_id`, `for_each_id`, `step_id`, `step_execution_id`)
+and is built on `flowsteward-extension-sdk` 0.4.0. A request with another
+contract, a missing scope key, or both a Group and a For each as its owner is
+refused (`invalid_host_envelope`) before any image artifact is read or written.
+The actions work the same for a step at the root, in a Group or in a For each.
+Install it on a Flow Steward Core that speaks this contract; an older Core does
+not run it.
+
+Logo: `icon.png` (the Flow Steward wave mark).
+
 ## Actions
 
 ### Upscale Image (`upscale`)

@@ -5,6 +5,7 @@ from __future__ import annotations
 import logging
 from typing import Any
 
+from flowsteward_extension_sdk import runtime_context_from_payload
 from flowsteward_extension_sdk.artifacts import (
     ArtifactAccessError,
     stream_artifact_bytes,
@@ -29,6 +30,15 @@ LOGGER = logging.getLogger(__name__)
 
 
 def handle_payload(payload: Any) -> dict:
+    # The host envelope is checked before any artifact is read or written:
+    # another contract, a missing execution-scope key or two owners is refused.
+    try:
+        runtime_context_from_payload(payload)
+    except ValueError as exc:
+        LOGGER.warning("image_processing_invalid_host_envelope")
+        response = error_response("invalid_host_envelope", str(exc))
+        response["definitely_no_external_effect"] = True
+        return response
     try:
         return {"ok": True, "result": process_image(payload)}
     except ImageProcessingError as exc:
@@ -70,7 +80,7 @@ def process_image(payload: Any) -> dict:
     original_width, original_height = image.size
     if action_id == "check_size":
         return _size_response(image, bounds)
-    if bounds is not None and mode == "fit_canvas":
+    if bounds is not None and fill is not None:  # fit_canvas: fill is set only for it
         image = fit_canvas(image, bounds, fill)
         method = "lanczos_fit_canvas"
     elif bounds is not None:

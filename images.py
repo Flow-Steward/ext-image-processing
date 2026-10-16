@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import io
 import warnings
+from typing import cast
 
 from PIL import Image, ImageCms, ImageOps, UnidentifiedImageError
 
@@ -86,12 +87,14 @@ def decode_image(body: bytes) -> Image.Image:
                 source.load()
                 oriented = ImageOps.exif_transpose(source)
                 if oriented.mode == "CMYK" and oriented.info.get("icc_profile"):
-                    oriented = ImageCms.profileToProfile(
+                    converted = ImageCms.profileToProfile(
                         oriented,
                         ImageCms.ImageCmsProfile(io.BytesIO(oriented.info["icc_profile"])),
                         ImageCms.createProfile("sRGB"),
                         outputMode="RGB",
                     )
+                    if converted is not None:  # None only for an in-place conversion
+                        oriented = converted
                 result = oriented.convert("RGBA")
                 profile = (
                     oriented.info.get("icc_profile") if oriented.mode in {"RGB", "RGBA"} else None
@@ -127,7 +130,9 @@ def fit_canvas(
 
 
 def has_transparency(image: Image.Image) -> bool:
-    return image.getchannel("A").getextrema()[0] < 255
+    # A single band's extrema is one (min, max) pair.
+    low, _high = cast("tuple[int, int]", image.getchannel("A").getextrema())
+    return low < 255
 
 
 def encode_png(image: Image.Image) -> bytes:
