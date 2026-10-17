@@ -2,7 +2,7 @@ manifest_version: 2
 lifecycle: {data_schema_version: 1, data_migrations: []}
 extension_id: com.image.processing
 kind: tool_provider
-version: 0.2.0
+version: 0.2.1
 display_name: Image Processing
 description: Local, CPU-only image resizing and background removal for workflows.
 vendor:
