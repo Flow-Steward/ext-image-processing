@@ -2,7 +2,7 @@ manifest_version: 2
 lifecycle: {data_schema_version: 1, data_migrations: []}
 extension_id: com.image.processing
 kind: tool_provider
-version: 0.2.1
+version: 0.2.2
 display_name: Image Processing
 description: Local, CPU-only image resizing and background removal for workflows.
 vendor:
@@ -48,8 +48,8 @@ python_requirements:
     version: "26.3"
     hashes: ["sha256:d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c"]
   - name: pillow
-    version: 12.3.0
-    hashes: ["sha256:78cb2c6865a35ab8ff8b75fd122f6033b92a62c82801110e48ddd6c936a45d91", "sha256:d9c7f76c0673154f044e9d78c8655fb4213f6ca31a836df48b40fe5d187717b9"]
+    version: 13.0.0
+    hashes: ["sha256:8bf295fe459343bc6093c8e5e0df60bfa189e0fcb775a22e2c2488fdeccc6c0d", "sha256:42d63be3af4f9b951b199b0a9d23365d37ab14687e6d77b74940432c8515c4ca"]
   - name: protobuf
     version: 7.36.1
     hashes: ["sha256:97198b77e369a0abd8e262b8f6c7266c55ddb796a3a12c76d7b8881188ed83aa", "sha256:43d3d37b1eb24c113b9b7d02008cac44e423f00b611b7781ae998d7623972969"]
