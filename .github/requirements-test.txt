@@ -1,7 +1,7 @@
 # Install with --no-index --find-links=wheels so tests use the shipped runtime.
 flatbuffers==25.12.19
-numpy==2.4.2
-onnxruntime==1.30.0
+numpy==2.5.4
+onnxruntime==1.31.1
 packaging==26.3
 pillow==13.0.0
-protobuf==7.36.1
+protobuf==7.36.2

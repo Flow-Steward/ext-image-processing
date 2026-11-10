@@ -2,7 +2,7 @@ manifest_version: 2
 lifecycle: {data_schema_version: 1, data_migrations: []}
 extension_id: com.image.processing
 kind: tool_provider
-version: 0.2.2
+version: 0.2.3
 display_name: Image Processing
 description: Local, CPU-only image resizing and background removal for workflows.
 vendor:
@@ -39,11 +39,15 @@ python_requirements:
     version: 25.12.19
     hashes: ["sha256:7634f50c427838bb021c2d66a3d1168e9d199b0607e6329399f04846d42e20b4"]
   - name: numpy
-    version: 2.4.2
-    hashes: ["sha256:9e35d3e0144137d9fdae62912e869136164534d64a169f86438bc9561b6ad49f", "sha256:6d82351358ffbcdcd7b686b90742a9b86632d6c1c051016484fa0b326a0a1548"]
+    version: "2.5.4"
+    hashes:
+    - sha256:fe4d21ab149f15e4e6043dfb0de87e6e5f34ac176cde83060e9802981fca2ac2
+    - sha256:fbde6962867ee75b48b0ee29b2b9372ec5d617799dbaf38e82dc0596f2f7738a
   - name: onnxruntime
-    version: 1.30.0
-    hashes: ["sha256:fa688e7891a6aa206636fe7372e27ee75fd17713289f6b4fc7b190e0a7de9328", "sha256:6c32a000d5139a38ba9349030b0032e3331acb559d596b22738d9d2b343a2b83"]
+    version: "1.31.1"
+    hashes:
+    - sha256:0b9a492176886992e0e875f06bc0367e333f5fff11711a2d642e18b02f3009cc
+    - sha256:1f3dea47f2f0e5117c2404cea7d21fd253ae7836a3bf167a501cdfbb2600d536
   - name: packaging
     version: "26.3"
     hashes: ["sha256:d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c"]
@@ -51,5 +55,7 @@ python_requirements:
     version: 13.0.0
     hashes: ["sha256:8bf295fe459343bc6093c8e5e0df60bfa189e0fcb775a22e2c2488fdeccc6c0d", "sha256:42d63be3af4f9b951b199b0a9d23365d37ab14687e6d77b74940432c8515c4ca"]
   - name: protobuf
-    version: 7.36.1
-    hashes: ["sha256:97198b77e369a0abd8e262b8f6c7266c55ddb796a3a12c76d7b8881188ed83aa", "sha256:43d3d37b1eb24c113b9b7d02008cac44e423f00b611b7781ae998d7623972969"]
+    version: "7.36.2"
+    hashes:
+    - sha256:e11e1f0180583a2af89db6a2ecd9e8dc40aa6d2988ca175bfd0e6d12ea72d74e
+    - sha256:89f23aa53c24553a2416fd4fd1ec06f74fa42b14b546d8883128813f775bbfd2
