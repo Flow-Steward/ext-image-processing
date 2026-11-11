@@ -1,11 +1,29 @@
 schema_version: extension_descriptor_v1
 extension_id: com.image.processing
-release_version: 0.2.3
+release_version: 0.2.4
 extension_type: service_extension
 identity:
   display_name: Image Processing
-  description: Local image resizing and background removal.
-  tags: [images, local, cpu]
+  description: 'Prepare product images, consistent catalog canvases and foreground cutouts locally with Image Processing.
+    Check Image Size reads an image artifact and returns its dimensions with flags indicating whether resizing or
+    padding is needed. Use those outputs to branch a workflow before creating a new image.
+
+
+    Upscale Image can enlarge or reduce an image proportionally with Lanczos resampling. Choose a maximum bounding
+    box, or fit the image onto an exact-size canvas with white, transparent or custom-color padding. It preserves
+    the aspect ratio without stretching or cropping. Remove Background uses a bundled U2-NetP model on the CPU and
+    returns a transparent PNG at the original dimensions. The actions can run independently or be combined in either
+    order.
+
+
+    Use the extension for product-image preparation, consistent catalog canvases or foreground cutouts. Processing
+    needs no API key, external inference service or runtime model download. Inputs are single, non-animated PNG,
+    JPEG or WebP artifacts up to 20 MiB and 16 megapixels. Enlargement is interpolation, so it does not reconstruct
+    missing detail; fine edges and difficult backgrounds may need manual review.'
+  tags:
+  - images
+  - local
+  - cpu
 vendor:
   vendor_name: Image Processing
 listing:
