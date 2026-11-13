@@ -2,7 +2,7 @@ manifest_version: 2
 lifecycle: {data_schema_version: 1, data_migrations: []}
 extension_id: com.image.processing
 kind: tool_provider
-version: 0.2.4
+version: 0.2.5
 display_name: Image Processing
 description: |-
   Prepare product images, consistent catalog canvases and foreground cutouts locally with Image Processing. Check Image Size reads an image artifact and returns its dimensions with flags indicating whether resizing or padding is needed. Use those outputs to branch a workflow before creating a new image.

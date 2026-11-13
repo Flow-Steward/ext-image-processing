@@ -1,29 +1,82 @@
 forms:
-  - operation_id: upscale
-    title: Upscale Image
-    section: Image
-    fields:
-      - {name: artifact_handle, widget_type: artifact_picker, label: Image, required: true}
-      - {name: target_width, widget_type: number, label: Maximum width (px), default: 1920}
-      - {name: target_height, widget_type: number, label: Maximum height (px), default: 1080}
-      - name: resize_mode
-        widget_type: select
-        label: Resize mode
-        default: resize
-        options:
-          - {label: Resize only, value: resize}
-          - {label: Fit canvas, value: fit_canvas}
-      - {name: canvas_color, widget_type: text, label: Canvas color, default: white}
-  - operation_id: remove_background
-    title: Remove Background
-    section: Image
-    fields:
-      - {name: artifact_handle, widget_type: artifact_picker, label: Image, required: true}
-      - {name: keep_existing_transparency, widget_type: boolean, label: Keep existing transparency, default: true}
-  - operation_id: check_size
-    title: Check Image Size
-    section: Image
-    fields:
-      - {name: artifact_handle, widget_type: artifact_picker, label: Image, required: true}
-      - {name: target_width, widget_type: number, label: Target width (px), default: 2048}
-      - {name: target_height, widget_type: number, label: Target height (px), default: 2048}
+- operation_id: upscale
+  title: Resize an image or fit it to a canvas
+  section: Image
+  fields:
+  - name: artifact_handle
+    widget_type: artifact_picker
+    label: Source image artifact
+    required: true
+    help_text: Map a single, non-animated PNG, JPEG or WebP artifact from an earlier step. Maximum 20 MiB and 16
+      megapixels.
+  - name: target_width
+    widget_type: number
+    label: Target width (pixels)
+    default: 1920
+    help_text: Positive integer from 1 to 8192; default 1920. The requested bounding box must not exceed 16777216
+      pixels. Aspect ratio is preserved.
+    placeholder: '2048'
+  - name: target_height
+    widget_type: number
+    label: Target height (pixels)
+    default: 1080
+    help_text: Positive integer from 1 to 8192; default 1080. The requested bounding box must not exceed 16777216
+      pixels. Aspect ratio is preserved.
+    placeholder: '2048'
+  - name: resize_mode
+    widget_type: select
+    label: Resize or canvas mode
+    default: resize
+    options:
+    - label: Resize only
+      value: resize
+    - label: Fit canvas
+      value: fit_canvas
+    help_text: resize (default) fits inside the bounds without padding. fit_canvas centers the resized image on
+      an exact-size canvas using Canvas color; neither mode stretches or crops.
+  - name: canvas_color
+    widget_type: text
+    label: Canvas color
+    default: white
+    help_text: 'Used only with fit_canvas. Enter white (default), transparent or a hexadecimal #RRGGBB color.'
+    placeholder: white
+- operation_id: remove_background
+  title: Remove an image background
+  section: Image
+  fields:
+  - name: artifact_handle
+    widget_type: artifact_picker
+    label: Source image artifact
+    required: true
+    help_text: Map a single, non-animated PNG, JPEG or WebP artifact from an earlier step. Maximum 20 MiB and 16
+      megapixels.
+  - name: keep_existing_transparency
+    widget_type: boolean
+    label: Preserve existing transparency without segmentation
+    default: true
+    help_text: 'Default: true. If the source already has non-opaque pixels, return it without background segmentation.
+      Disable to process an image that still has unwanted background despite existing transparency.'
+- operation_id: check_size
+  title: Inspect image dimensions
+  section: Image
+  fields:
+  - name: artifact_handle
+    widget_type: artifact_picker
+    label: Source image artifact
+    required: true
+    help_text: Map a single, non-animated PNG, JPEG or WebP artifact from an earlier step. Maximum 20 MiB and 16
+      megapixels.
+  - name: target_width
+    widget_type: number
+    label: Target width (pixels)
+    default: 2048
+    help_text: Positive integer from 1 to 8192; default 2048. Used only for size comparison; this action does not
+      resize the image.
+    placeholder: '2048'
+  - name: target_height
+    widget_type: number
+    label: Target height (pixels)
+    default: 2048
+    help_text: Positive integer from 1 to 8192; default 2048. Used only for size comparison; this action does not
+      resize the image.
+    placeholder: '2048'

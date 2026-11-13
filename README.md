@@ -1,8 +1,8 @@
 # Image Processing
 
-Prepare product images, consistent catalog canvases and foreground cutouts locally with Image Processing. Check Image Size reads an image artifact and returns its dimensions with flags indicating whether resizing or padding is needed. Use those outputs to branch a workflow before creating a new image.
+Prepare product images, consistent catalog canvases and foreground cutouts locally with Image Processing. Inspect image dimensions reads an image artifact and returns its dimensions with flags indicating whether resizing or padding is needed. Use those outputs to branch a workflow before creating a new image.
 
-Upscale Image can enlarge or reduce an image proportionally with Lanczos resampling. Choose a maximum bounding box, or fit the image onto an exact-size canvas with white, transparent or custom-color padding. It preserves the aspect ratio without stretching or cropping. Remove Background uses a bundled U2-NetP model on the CPU and returns a transparent PNG at the original dimensions. The actions can run independently or be combined in either order.
+Resize an image or fit it to a canvas can enlarge or reduce an image proportionally with Lanczos resampling. Choose a maximum bounding box, or fit the image onto an exact-size canvas with white, transparent or custom-color padding. It preserves the aspect ratio without stretching or cropping. Remove an image background uses a bundled U2-NetP model on the CPU and returns a transparent PNG at the original dimensions. The actions can run independently or be combined in either order.
 
 Use the extension for product-image preparation, consistent catalog canvases or foreground cutouts. Processing needs no API key, external inference service or runtime model download. Inputs are single, non-animated PNG, JPEG or WebP artifacts up to 20 MiB and 16 megapixels. Enlargement is interpolation, so it does not reconstruct missing detail; fine edges and difficult backgrounds may need manual review.
 
@@ -21,7 +21,7 @@ Logo: `icon.png` (the Flow Steward wave mark).
 
 ## Actions
 
-### Upscale Image (`upscale`)
+### Resize an image or fit it to a canvas (`upscale`)
 
 | Input | Default | Meaning |
 | --- | --- | --- |
@@ -52,7 +52,7 @@ detail missing from the source. Moderate enlargement such as 1024 to 1480 is
 the intended use case. PNG encoding avoids additional JPEG compression losses;
 resampling itself is not mathematically lossless.
 
-### Check Image Size (`check_size`)
+### Inspect image dimensions (`check_size`)
 
 | Input | Default | Meaning |
 | --- | --- | --- |
@@ -64,7 +64,7 @@ Returns dimensions and flags such as `exact_match`, `needs_resize`,
 `needs_padding`, and `recommended_resize_mode`. This action does not create a
 new image artifact.
 
-### Remove Background (`remove_background`)
+### Remove an image background (`remove_background`)
 
 | Input | Default | Meaning |
 | --- | --- | --- |
@@ -94,9 +94,9 @@ One example of composing them is:
 
 1. Install the archive from the Extensions interface in the intended project.
 2. Supply an image artifact from a preceding step.
-3. Add **Remove Background**, selecting **Image Processing** and mapping the
+3. Add **Remove an image background**, selecting **Image Processing** and mapping the
    source to `artifact_handle`.
-4. Add **Upscale Image**, mapping the previous `image_artifact_handle` to its
+4. Add **Resize an image or fit it to a canvas**, mapping the previous `image_artifact_handle` to its
    `artifact_handle`, then set `target_width` and `target_height`.
 5. Pass the resulting `image_artifact_handle` to the next step and use **Test Run**.
 
@@ -152,3 +152,7 @@ References: [Pillow](https://pillow.readthedocs.io/en/stable/),
 [rembg normalization](https://github.com/danielgatis/rembg/blob/main/rembg/sessions/u2netp.py).
 Model provenance and bundled third-party notices are in `models/README.md` and
 `licenses/`. Wheel archives retain their upstream license files.
+
+## Workflow action setup and examples
+
+See [Workflow actions](docs/workflow-actions.md) for connection setup, inputs and practical examples.

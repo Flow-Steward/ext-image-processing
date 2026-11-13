@@ -10,5 +10,6 @@ components:
 
       | Action | Output |
       | --- | --- |
-      | Upscale Image | Proportional PNG at the requested pixel bounds |
-      | Remove Background | Transparent PNG at the original dimensions |
+      | Resize an image or fit it to a canvas | Proportional PNG at the requested pixel bounds |
+      | Inspect image dimensions | Dimensions and resize/padding flags; no new artifact |
+      | Remove an image background | Transparent PNG at the original dimensions |

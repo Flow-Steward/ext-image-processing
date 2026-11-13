@@ -1,6 +1,6 @@
 schema_version: extension_descriptor_v1
 extension_id: com.image.processing
-release_version: 0.2.4
+release_version: 0.2.5
 extension_type: service_extension
 identity:
   display_name: Image Processing
