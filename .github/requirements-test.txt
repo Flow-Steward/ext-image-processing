@@ -1,7 +1,17 @@
-# Install with --no-index --find-links=wheels so tests use the shipped runtime.
-flatbuffers==25.12.19
-numpy==2.5.4
-onnxruntime==1.31.1
-packaging==26.3
-pillow==13.0.0
-protobuf==7.36.2
+# Install with --no-index --find-links=wheels so tests use the hash-verified shipped runtime.
+flatbuffers==25.12.19 \
+    --hash=sha256:7634f50c427838bb021c2d66a3d1168e9d199b0607e6329399f04846d42e20b4
+numpy==2.5.4 \
+    --hash=sha256:fe4d21ab149f15e4e6043dfb0de87e6e5f34ac176cde83060e9802981fca2ac2 \
+    --hash=sha256:fbde6962867ee75b48b0ee29b2b9372ec5d617799dbaf38e82dc0596f2f7738a
+onnxruntime==1.32.0+flowsteward.1 \
+    --hash=sha256:9788858f38ed253681ad8253baf900411efc3bda9235a3fa9c03039675db381f \
+    --hash=sha256:b848bfb28f54bf19df1e7f0eea26a62c7872ef8c932828e1f413d32660fa50f8
+packaging==26.3 \
+    --hash=sha256:d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c
+pillow==13.0.0 \
+    --hash=sha256:8bf295fe459343bc6093c8e5e0df60bfa189e0fcb775a22e2c2488fdeccc6c0d \
+    --hash=sha256:42d63be3af4f9b951b199b0a9d23365d37ab14687e6d77b74940432c8515c4ca
+protobuf==7.36.2 \
+    --hash=sha256:e11e1f0180583a2af89db6a2ecd9e8dc40aa6d2988ca175bfd0e6d12ea72d74e \
+    --hash=sha256:89f23aa53c24553a2416fd4fd1ec06f74fa42b14b546d8883128813f775bbfd2

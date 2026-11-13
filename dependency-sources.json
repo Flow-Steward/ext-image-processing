@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "dependencies": [
+    {
+      "name": "onnxruntime",
+      "version": "1.32.0+flowsteward.1",
+      "upstream_name": "onnxruntime",
+      "upstream_version": "1.32.0",
+      "upstream_url": "https://files.pythonhosted.org/packages/4a/8f/1e43fb994513c7c7a9c6965272ef89d963c1bd4080993a6267bf913701d1/onnxruntime-1.32.0-cp312-cp312-manylinux_2_28_aarch64.whl",
+      "upstream_sha256": "e36c187006e7a7c8b8d6d57f1a209dd63f52430dca6c282b177718ad6b841054",
+      "source_repository": "https://github.com/microsoft/onnxruntime",
+      "patches": "docs/onnxruntime-wheel-provenance.json",
+      "patch_sha256": "919bbf25a18386f886b223e2814ddbdf3e217c7aac45526c1d6c3f38e73abea2",
+      "wheel_filename": "onnxruntime-1.32.0+flowsteward.1-cp312-cp312-manylinux_2_28_aarch64.whl",
+      "wheel_sha256": "9788858f38ed253681ad8253baf900411efc3bda9235a3fa9c03039675db381f"
+    },
+    {
+      "name": "onnxruntime",
+      "version": "1.32.0+flowsteward.1",
+      "upstream_name": "onnxruntime",
+      "upstream_version": "1.32.0",
+      "upstream_url": "https://files.pythonhosted.org/packages/a3/81/55845186c20cba59f614991f4065dea148e48eeb9749893768c85ce64327/onnxruntime-1.32.0-cp312-cp312-manylinux_2_28_x86_64.whl",
+      "upstream_sha256": "99e1074c4b2197accd5073052a465361be17b89c093b8ffb6e6bd8f986c52df8",
+      "source_repository": "https://github.com/microsoft/onnxruntime",
+      "patches": "docs/onnxruntime-wheel-provenance.json",
+      "patch_sha256": "919bbf25a18386f886b223e2814ddbdf3e217c7aac45526c1d6c3f38e73abea2",
+      "wheel_filename": "onnxruntime-1.32.0+flowsteward.1-cp312-cp312-manylinux_2_28_x86_64.whl",
+      "wheel_sha256": "b848bfb28f54bf19df1e7f0eea26a62c7872ef8c932828e1f413d32660fa50f8"
+    }
+  ]
+}

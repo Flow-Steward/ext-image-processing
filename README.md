@@ -112,8 +112,8 @@ They work independently and require no connection configuration.
 - RGB color profiles are preserved; profiled CMYK JPEGs are converted to sRGB.
 - Each action processes one image. Use the workflow's iteration controls for batches.
 - Invocation timeout: 120 seconds; each artifact transfer timeout: 10 seconds.
-- The archive includes CPU wheels for Linux x86-64, CPython 3.12, glibc >= 2.28,
-  matching the current Flow Steward container. Other targets need their own wheel lock.
+- The release provides separate CPU archives for Linux x86-64 and arm64,
+  CPython 3.12, glibc >= 2.28. Other targets need their own wheel lock.
 
 ## Resource Checks
 
@@ -131,17 +131,19 @@ Dependencies are fully pinned with SHA-256 wheel hashes in `extension.yaml`.
 bundled wheels offline in the extension's own environment. The SDK comes from
 the host; this extension does not import application internals at runtime.
 
-With the extension dependencies, pytest, PyYAML, and platform dependencies available:
+Run the standalone suite from this repository on CPython 3.12 Linux, matching
+one of the bundled architectures, in an isolated virtual environment:
 
 ```bash
-PYTHONPATH=.:core/infrastructure/extension_sdk/public python -m pytest \
-  -c extensions/com_image_processing/pyproject.toml \
-  extensions/com_image_processing/tests -x -q
+python -m pip install pytest==9.2.0 PyYAML==6.0.3 dev-wheels/flowsteward_extension_sdk-0.4.0-py3-none-any.whl
+python -m pip install --force-reinstall --no-index --find-links=wheels -r .github/requirements-test.txt
+python -m pip check
+python -m pytest -q -p no:cacheprovider tests .github/tests
 ```
 
 The tests cover real CPU inference, artifact I/O, dimensions, alpha preservation,
-malformed/animated input, model checksums, dependency closure, and host contract
-compilation. Tests use temporary files; no external provider is contacted.
+malformed/animated input, model checksums, and host envelope validation. Tests
+use temporary files; no external provider is contacted.
 
 Build with the standard `flow-steward extensions bundle com.image.processing`
 command. The package is a Python subprocess extension, not a native executable.
@@ -151,7 +153,8 @@ References: [Pillow](https://pillow.readthedocs.io/en/stable/),
 [U-2-Net](https://github.com/xuebinqin/U-2-Net),
 [rembg normalization](https://github.com/danielgatis/rembg/blob/main/rembg/sessions/u2netp.py).
 Model provenance and bundled third-party notices are in `models/README.md` and
-`licenses/`. Wheel archives retain their upstream license files.
+`licenses/`. Wheel archives retain their upstream license files. Exact ONNX Runtime
+wheel provenance and notice hashes are in [Dependency provenance](docs/dependency-provenance.md).
 
 ## Workflow action setup and examples
 
