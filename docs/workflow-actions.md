@@ -20,12 +20,16 @@ Example input values:
 
 ```json
 {
+  "artifact_handle": "artifact:input",
   "target_width": 2048,
   "target_height": 2048,
   "canvas_color": "white",
   "resize_mode": "fit_canvas"
 }
 ```
+
+In the workflow editor, select the source artifact from the earlier step. `artifact:input` illustrates the mapped handle; replace it with the actual handle supplied by that step.
+No project connection is used.
 
 ## Remove an image background
 
@@ -34,7 +38,17 @@ Use the bundled U2-NetP CPU model to create a transparent PNG at the source dime
 - **Source image artifact**: Map a single, non-animated PNG, JPEG or WebP artifact from an earlier step. Maximum 20 MiB and 16 megapixels.
 - **Preserve existing transparency without segmentation**: Default: true. If the source already has non-opaque pixels, return it without background segmentation. Disable to process an image that still has unwanted background despite existing transparency.
 
-Uses the selected project connection; no additional action inputs.
+Example input values:
+
+```json
+{
+  "artifact_handle": "artifact:input",
+  "keep_existing_transparency": true
+}
+```
+
+In the workflow editor, select the source artifact from the earlier step. `artifact:input` illustrates the mapped handle; replace it with the actual handle supplied by that step.
+No project connection is used.
 
 ## Inspect image dimensions
 
@@ -48,7 +62,11 @@ Example input values:
 
 ```json
 {
+  "artifact_handle": "artifact:input",
   "target_width": 2048,
   "target_height": 2048
 }
 ```
+
+In the workflow editor, select the source artifact from the earlier step. `artifact:input` illustrates the mapped handle; replace it with the actual handle supplied by that step.
+No project connection is used.
