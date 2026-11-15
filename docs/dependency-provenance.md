@@ -1,6 +1,6 @@
 # Runtime dependency provenance
 
-Image Processing 0.2.6 bundles the extension-specific Python distribution
+Image Processing 0.2.7 bundles the extension-specific Python distribution
 `onnxruntime==1.32.0+flowsteward.1`, derived from the official ONNX Runtime
 1.32.0 CPU wheels in [versioned PyPI metadata](https://pypi.org/pypi/onnxruntime/1.32.0/json).
 The local version distinguishes this distribution from the upstream wheel.

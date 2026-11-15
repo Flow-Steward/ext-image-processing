@@ -1,5 +1,10 @@
 # Release notes
 
+## 0.2.7
+
+- Added a Support tab with links for reporting a problem, asking a question or requesting a feature in this extension's GitHub repository, and what to include in a report.
+- Added the issue tracker as the extension's support link.
+
 ## 0.2.6
 
 - Upgrade the bundled ONNX Runtime CPU dependency from 1.31.1 to 1.32.0 for
