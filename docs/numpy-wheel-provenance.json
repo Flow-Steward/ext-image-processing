@@ -1,0 +1,27 @@
+{
+  "metadata_url": "https://pypi.org/pypi/numpy/2.5.5/json",
+  "wheels": [
+    {
+      "name": "numpy",
+      "version": "2.5.5",
+      "upstream_name": "numpy",
+      "upstream_version": "2.5.5",
+      "upstream_url": "https://files.pythonhosted.org/packages/c2/22/82184e9a5b50a4a298e9f8fe0bd8cfc483672dbfea8a3b57c78e2376b139/numpy-2.5.5-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+      "upstream_sha256": "a0750f2156d53446caca85663d0b65d67214e1664b9050454a731ea1418d176a",
+      "source_repository": "https://github.com/numpy/numpy",
+      "wheel_filename": "numpy-2.5.5-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+      "wheel_sha256": "a0750f2156d53446caca85663d0b65d67214e1664b9050454a731ea1418d176a"
+    },
+    {
+      "name": "numpy",
+      "version": "2.5.5",
+      "upstream_name": "numpy",
+      "upstream_version": "2.5.5",
+      "upstream_url": "https://files.pythonhosted.org/packages/99/61/522b973ba38987b22a4a71beaed2ea6ac9fd4f687baaa2bc9a45100625e0/numpy-2.5.5-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "upstream_sha256": "704d819265e5d1064d932968e9ee85fff2103ccc78c05b878c06943ba27b8507",
+      "source_repository": "https://github.com/numpy/numpy",
+      "wheel_filename": "numpy-2.5.5-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "wheel_sha256": "704d819265e5d1064d932968e9ee85fff2103ccc78c05b878c06943ba27b8507"
+    }
+  ]
+}
