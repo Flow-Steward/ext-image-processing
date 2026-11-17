@@ -1,6 +1,6 @@
 schema_version: extension_descriptor_v1
 extension_id: com.image.processing
-release_version: 0.2.8
+release_version: 0.2.9
 extension_type: service_extension
 identity:
   display_name: Image Processing
@@ -25,7 +25,8 @@ identity:
   - local
   - cpu
 vendor:
-  vendor_name: Image Processing
+  vendor_name: Flow Steward
+  support_url: https://github.com/Flow-Steward/ext-image-processing/issues
 listing:
   visibility: private_reference
   category: media

@@ -1,5 +1,11 @@
 # Release notes
 
+## 0.2.9
+
+- Identify Flow Steward as the extension publisher and provide the extension repository's issue tracker in both manifest and descriptor support metadata.
+
+[Changes from 0.2.8](https://github.com/Flow-Steward/ext-image-processing/compare/v0.2.8...v0.2.9)
+
 ## 0.2.8
 
 - Update bundled NumPy from 2.5.4 to 2.5.5 using the official CPython 3.12 Linux amd64 and arm64 wheels with exact SHA-256 pins.
