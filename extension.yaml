@@ -2,7 +2,7 @@ manifest_version: 2
 lifecycle: {data_schema_version: 1, data_migrations: []}
 extension_id: com.image.processing
 kind: tool_provider
-version: 0.2.8
+version: 0.2.9
 display_name: Image Processing
 description: |-
   Prepare product images, consistent catalog canvases and foreground cutouts locally with Image Processing. Check Image Size reads an image artifact and returns its dimensions with flags indicating whether resizing or padding is needed. Use those outputs to branch a workflow before creating a new image.
@@ -11,7 +11,7 @@ description: |-
 
   Use the extension for product-image preparation, consistent catalog canvases or foreground cutouts. Processing needs no API key, external inference service or runtime model download. Inputs are single, non-animated PNG, JPEG or WebP artifacts up to 20 MiB and 16 megapixels. Enlargement is interpolation, so it does not reconstruct missing detail; fine edges and difficult backgrounds may need manual review.
 vendor:
-  name: Image Processing
+  name: Flow Steward
   support_url: https://github.com/Flow-Steward/ext-image-processing/issues
 listing:
   category: media
