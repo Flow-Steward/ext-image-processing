@@ -2,7 +2,7 @@ manifest_version: 2
 lifecycle: {data_schema_version: 1, data_migrations: []}
 extension_id: com.image.processing
 kind: tool_provider
-version: 0.2.7
+version: 0.2.8
 display_name: Image Processing
 description: |-
   Prepare product images, consistent catalog canvases and foreground cutouts locally with Image Processing. Check Image Size reads an image artifact and returns its dimensions with flags indicating whether resizing or padding is needed. Use those outputs to branch a workflow before creating a new image.
@@ -51,10 +51,10 @@ python_requirements:
     version: 25.12.19
     hashes: ["sha256:7634f50c427838bb021c2d66a3d1168e9d199b0607e6329399f04846d42e20b4"]
   - name: numpy
-    version: "2.5.4"
+    version: "2.5.5"
     hashes:
-    - sha256:fe4d21ab149f15e4e6043dfb0de87e6e5f34ac176cde83060e9802981fca2ac2
-    - sha256:fbde6962867ee75b48b0ee29b2b9372ec5d617799dbaf38e82dc0596f2f7738a
+    - sha256:a0750f2156d53446caca85663d0b65d67214e1664b9050454a731ea1418d176a
+    - sha256:704d819265e5d1064d932968e9ee85fff2103ccc78c05b878c06943ba27b8507
   - name: onnxruntime
     version: "1.32.0+flowsteward.1"
     hashes:

@@ -13,7 +13,11 @@ permissions:
 
 jobs:
   extension:
-    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-24.04, ubuntu-24.04-arm]
+    runs-on: ${{ matrix.runner }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
@@ -34,15 +38,19 @@ jobs:
         run: |
           if [ -d tests ]; then python -m pytest -q -p no:cacheprovider tests; else echo "no tests/"; fi
       - name: Package the archive
+        if: matrix.runner == 'ubuntu-24.04'
         run: |
           python .github/scripts/package_extension.py
           # Recorded before any fetched code runs; the release verifies it again.
           (cd dist && sha256sum -- *.zip > SHA256SUMS)
       - name: The catalog would accept it
+        if: matrix.runner == 'ubuntu-24.04'
         run: python .github/scripts/catalog_check.py dist/*.zip
       - name: The archives are still the ones packaged
+        if: matrix.runner == 'ubuntu-24.04'
         run: cd dist && sha256sum -c SHA256SUMS
-      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+      - if: matrix.runner == 'ubuntu-24.04'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: dist
           path: |

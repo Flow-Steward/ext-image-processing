@@ -1,6 +1,6 @@
 # Runtime dependency provenance
 
-Image Processing 0.2.7 bundles the extension-specific Python distribution
+Image Processing 0.2.8 bundles the extension-specific Python distribution
 `onnxruntime==1.32.0+flowsteward.1`, derived from the official ONNX Runtime
 1.32.0 CPU wheels in [versioned PyPI metadata](https://pypi.org/pypi/onnxruntime/1.32.0/json).
 The local version distinguishes this distribution from the upstream wheel.
@@ -67,3 +67,21 @@ The [1.32.0 release notes](https://github.com/microsoft/onnxruntime/releases/tag
 remove `ACLExecutionProvider`; this extension explicitly requests only
 `CPUExecutionProvider`. The bundled U2-NetP checksum, CPU thread limits, input
 security limits and public image-operation contracts remain unchanged.
+
+## NumPy 2.5.5
+
+The CPython 3.12 Linux wheels are unmodified official NumPy distributions from
+[versioned PyPI metadata](https://pypi.org/pypi/numpy/2.5.5/json). The bundled
+manifest and offline test requirements pin their SHA-256 values.
+[`numpy-wheel-provenance.json`](numpy-wheel-provenance.json) records their
+immutable download URLs and upstream SHA-256 values.
+
+| Target | Wheel SHA-256 |
+| --- | --- |
+| Linux arm64 | `a0750f2156d53446caca85663d0b65d67214e1664b9050454a731ea1418d176a` |
+| Linux amd64 | `704d819265e5d1064d932968e9ee85fff2103ccc78c05b878c06943ba27b8507` |
+
+Both retain their upstream license and bundled-library notices in `numpy-2.5.5.dist-info/licenses/`.
+CI installs the shipped wheels offline with hashes and runs the existing image
+operations, real CPU inference, security and contract tests on native Linux
+amd64 and arm64 runners.

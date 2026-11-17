@@ -1,5 +1,11 @@
 # Release notes
 
+## 0.2.8
+
+- Update bundled NumPy from 2.5.4 to 2.5.5 using the official CPython 3.12 Linux amd64 and arm64 wheels with exact SHA-256 pins.
+- Verify the existing image operations and CPU model through offline runtime installs on native Linux amd64 and arm64 CI runners.
+- Record provenance for the unchanged Flow Steward icon.
+
 ## 0.2.7
 
 - Added a Support tab with links for reporting a problem, asking a question or requesting a feature in this extension's GitHub repository, and what to include in a report.
