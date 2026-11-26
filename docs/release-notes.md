@@ -1,5 +1,11 @@
 # Release notes
 
+## 0.2.10
+
+- Update the bundled and CI-tested `packaging` wheel to 26.4 on Linux amd64 and arm64. Both targets use the official [PyPI wheel](https://pypi.org/project/packaging/26.4/) with its SHA-256 pin.
+
+[Changes from 0.2.9](https://github.com/Flow-Steward/ext-image-processing/compare/v0.2.9...v0.2.10)
+
 ## 0.2.9
 
 - Identify Flow Steward as the extension publisher and provide the extension repository's issue tracker in both manifest and descriptor support metadata.

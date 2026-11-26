@@ -2,7 +2,7 @@ manifest_version: 2
 lifecycle: {data_schema_version: 1, data_migrations: []}
 extension_id: com.image.processing
 kind: tool_provider
-version: 0.2.9
+version: 0.2.10
 display_name: Image Processing
 description: |-
   Prepare product images, consistent catalog canvases and foreground cutouts locally with Image Processing. Check Image Size reads an image artifact and returns its dimensions with flags indicating whether resizing or padding is needed. Use those outputs to branch a workflow before creating a new image.
@@ -61,8 +61,8 @@ python_requirements:
     - sha256:9788858f38ed253681ad8253baf900411efc3bda9235a3fa9c03039675db381f
     - sha256:b848bfb28f54bf19df1e7f0eea26a62c7872ef8c932828e1f413d32660fa50f8
   - name: packaging
-    version: "26.3"
-    hashes: ["sha256:d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c"]
+    version: "26.4"
+    hashes: ["sha256:81383611a09c1bc0b08b76e0fd5829d7c6824c65b27a6aee339da133f4233ea2"]
   - name: pillow
     version: 13.0.0
     hashes: ["sha256:8bf295fe459343bc6093c8e5e0df60bfa189e0fcb775a22e2c2488fdeccc6c0d", "sha256:42d63be3af4f9b951b199b0a9d23365d37ab14687e6d77b74940432c8515c4ca"]
